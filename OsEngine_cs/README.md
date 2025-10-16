@@ -26,5 +26,13 @@
 ## Скриншоты ошибок
 
 - Capture.PNG - Ошибка при запуске на чистой Windows10 (c установленной .NET 9.0 )
-- Capture1.PNG, Capture2.PNG, Capture3.PNG, Capture4.PNG - Результаты тестирования
+![Ошибка запуска](https://raw.githubusercontent.com/Alex-Shur/algo_trading_csharp_ws_Python/refs/heads/main/OsEngine_cs/Capture.PNG)
 
+- Результаты тестирования
+![1](https://raw.githubusercontent.com/Alex-Shur/algo_trading_csharp_ws_Python/refs/heads/main/OsEngine_cs/Capture1.PNG)
+
+![2](https://raw.githubusercontent.com/Alex-Shur/algo_trading_csharp_ws_Python/refs/heads/main/OsEngine_cs/Capture2.PNG)
+
+![3](https://raw.githubusercontent.com/Alex-Shur/algo_trading_csharp_ws_Python/refs/heads/main/OsEngine_cs/Capture3.PNG)
+
+![4](https://raw.githubusercontent.com/Alex-Shur/algo_trading_csharp_ws_Python/refs/heads/main/OsEngine_cs/Capture4.PNG)
