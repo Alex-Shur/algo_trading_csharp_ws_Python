@@ -4,28 +4,16 @@ import backtrader as bt
 from backtrader.feeds import PandasData
 
 
-class SimpleSizer(bt.Sizer):
-    params = (
-        ('percents', 99),
-    )
-
-    def _getsizing(self, comminfo, cash, data, isbuy):
-        value = self.broker.getvalue()
-        price = data.close[0]+comminfo.p.commission
-        size = value / price * (self.params.percents / 100)
-        return int(size)
-
-
 class SmaCross(bt.Strategy):
     params = (
-        ('MA1', 65),
-        ('MA2', 105),
+        ('MA1', 15),
+        ('MA2', 91),
     )
 
     def __init__(self):
         self.Order = None
-        self.ma1 = bt.indicators.SMA(self.data.close, period=self.params.MA1)
-        self.ma2 = bt.indicators.SMA(self.data.close, period=self.params.MA2)
+        self.ma1 = bt.indicators.SMA(self.data.close, period=self.p.MA1)
+        self.ma2 = bt.indicators.SMA(self.data.close, period=self.p.MA2)
 
 
     def notify_order(self, order):
@@ -45,7 +33,7 @@ class SmaCross(bt.Strategy):
             pos = self.getposition()
             if pos:
                 self.close(size=pos.size)
-            self.Order = self.buy()
+            self.Order = self.buy(size=1)
         elif self.crossover(self.ma2, self.ma1):
             pos = self.getposition()
             if pos:
@@ -64,8 +52,7 @@ if __name__ == '__main__':
     cerebro = bt.Cerebro()
     cerebro.broker.setcash(1_000_000.0)
     cerebro.broker.set_shortcash(False)
-    cerebro.broker.setcommission(commission=0, margin=1, mult=1)
-    cerebro.addsizer(SimpleSizer, percents=90)
+    cerebro.broker.setcommission(commission=0.0004, leverage=1) # 0.04% per trade
 
     start = time.perf_counter()
     df = pd.read_csv(f"SBER_M1.csv.zip", sep=";", parse_dates=[["Date","Time"]], index_col=0)

@@ -35,25 +35,20 @@ class SmaCross(Strategy):
         # long trades, and sell the asset
         elif crossover(self.sma2, self.sma1):
             self.position.close()
-            #self.sell() #size=1)
+            #self.sell(size=1)
 
-
-def my_commision(size: float, price: float):
-    size = round(abs(size))
-    rc = size * 10;  ## 10h зper share
-    return rc
-    
 
 start = time.perf_counter()
 dt = pd.read_csv("./SBER_M1.csv.zip", sep=";",  parse_dates=[["Date","Time"]], index_col=0)
 dt.index.name = 'Date'
 
-bt = Backtest(dt, SmaCross, cash=1_000_000, commission=(10,.0))  
+# set commision 0.04% per trade
+bt = Backtest(dt, SmaCross, cash=1_000_000, commission=0.0004, margin=1)
 stats = bt.run()
 
 end = time.perf_counter()
 print(f"Execution time for sum_list: {end - start:.4f} seconds\n\n")
 
-print(stats)
+#print(stats)
 
 
