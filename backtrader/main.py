@@ -55,9 +55,9 @@ if __name__ == '__main__':
     cerebro.broker.setcommission(commission=0.0004, leverage=1) # 0.04% per trade
 
     start = time.perf_counter()
-    df = pd.read_csv(f"SBER_M1.csv.zip", sep=";", parse_dates=[["Date","Time"]], index_col=0)
-    #df['Datetime'] = pd.to_datetime(df['Date'].astype(str) , format='%Y-%m-%d')
-    #df.set_index('Datetime', inplace=True)
+    df = pd.read_csv("SBER_M1.csv.zip", sep=";", dtype={'Date':str, 'Time':str})
+    df.index = pd.to_datetime(df['Date'] + df['Time'], format='%Y%m%d%H%M')
+    df.drop(columns=['Date', 'Time'], inplace=True)
     df.index.name = 'Datetime'
 
     data = PandasData(dataname=df, timeframe=bt.TimeFrame.Minutes, compression=1)
@@ -67,6 +67,6 @@ if __name__ == '__main__':
 
     results = cerebro.run()
     end = time.perf_counter()
-    print(f"Execution time for sum_list: {end - start:.4f} seconds\n\n")
+    print(f"Execution time for backtest: {end - start:.4f} seconds\n\n")
 
 

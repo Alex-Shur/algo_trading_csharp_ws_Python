@@ -1,0 +1,10 @@
+[project]
+name = "backtrader_perf"
+version = "0.2.0"
+description = "Testing performance with backtrader-next"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "backtrader-next"
+]
+
